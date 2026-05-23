@@ -1,0 +1,192 @@
+[build]
+  command = "npm run build:prod"
+  publish = "dist"
+
+# ─────────────────────────────────────────────────────────────
+# SERVER-SIDE 301 PERMANENT REDIRECTS
+# These fire before the SPA fallback so Google receives a real
+# 301 status code and transfers full link equity to the new URL.
+# Rule order matters — Netlify uses first-match-wins.
+# ─────────────────────────────────────────────────────────────
+
+# ── www → non-www (must be first — host-based redirects fire before path rules) ──
+[[redirects]]
+  from = "/*"
+  to   = "https://bestold.in/:splat"
+  status = 301
+  force = true
+  conditions = {Host = ["www.bestold.in"]}
+
+# ── Trailing-slash normalisation ──────────────────────────────
+# Dynamic routes — :splat captures the segment after the prefix
+[[redirects]]
+  from = "/products/*/"
+  to   = "/products/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/stores/*/"
+  to   = "/stores/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/location/*/"
+  to   = "/location/:splat"
+  status = 301
+
+# Static routes with trailing slash
+[[redirects]]
+  from = "/stores/"
+  to   = "/stores"
+  status = 301
+
+[[redirects]]
+  from = "/search/"
+  to   = "/search"
+  status = 301
+
+[[redirects]]
+  from = "/categories/"
+  to   = "/categories"
+  status = 301
+
+[[redirects]]
+  from = "/franchises/"
+  to   = "/elite-partners"
+  status = 301
+
+[[redirects]]
+  from = "/franchises"
+  to   = "/elite-partners"
+  status = 301
+
+[[redirects]]
+  from = "/become-franchise"
+  to   = "/become-elite-partner"
+  status = 301
+
+[[redirects]]
+  from = "/elite-partners/"
+  to   = "/elite-partners"
+  status = 301
+
+[[redirects]]
+  from = "/become-elite-partner/"
+  to   = "/become-elite-partner"
+  status = 301
+
+[[redirects]]
+  from = "/about/"
+  to   = "/about"
+  status = 301
+
+[[redirects]]
+  from = "/privacy/"
+  to   = "/privacy"
+  status = 301
+
+[[redirects]]
+  from = "/terms/"
+  to   = "/terms"
+  status = 301
+
+[[redirects]]
+  from = "/store-locator/"
+  to   = "/store-locator"
+  status = 301
+
+# ── Stale sitemap URLs (old sitemap.ts generated these wrong paths) ──
+# /store/:id singular  →  /stores/:id  (old sitemap used wrong path)
+[[redirects]]
+  from = "/store/:id"
+  to   = "/stores/:id"
+  status = 301
+
+# /category/:id  →  /categories  (no category-detail page exists)
+[[redirects]]
+  from = "/category/:id"
+  to   = "/categories"
+  status = 301
+
+# /terms-of-service, /return-policy  →  /terms  (old sitemap static pages)
+[[redirects]]
+  from = "/terms-of-service"
+  to   = "/terms"
+  status = 301
+
+[[redirects]]
+  from = "/return-policy"
+  to   = "/terms"
+  status = 301
+
+# ── Legacy URL redirects (from previous Google Search Console audit) ──
+# /lander  →  homepage  (was used as a category landing page)
+[[redirects]]
+  from = "/lander"
+  to   = "/"
+  status = 301
+
+# /privacy-policy  →  /privacy  (old URL slug)
+[[redirects]]
+  from = "/privacy-policy"
+  to   = "/privacy"
+  status = 301
+
+# /product/:id  →  /products/:id  (old singular path; :id is preserved by Netlify)
+[[redirects]]
+  from = "/product/:id"
+  to   = "/products/:id"
+  status = 301
+
+# /products  (listing with query params, no segment)  →  /search
+# Netlify ignores query strings in `from` matching, so this catches
+# /products?sub_category_id=32&data_from=category&page=1 as well.
+[[redirects]]
+  from = "/products"
+  to   = "/search"
+  status = 301
+
+# /business-page/about  →  /about
+[[redirects]]
+  from = "/business-page/about"
+  to   = "/about"
+  status = 301
+
+# /vendor/auth/registration/index  →  /register
+[[redirects]]
+  from = "/vendor/auth/registration/index"
+  to   = "/register"
+  status = 301
+
+# /contact-us  →  homepage  (no dedicated contact page)
+[[redirects]]
+  from = "/contact-us"
+  to   = "/"
+  status = 301
+
+# /refund  →  /terms  (refund policy is part of Terms & Conditions)
+[[redirects]]
+  from = "/refund"
+  to   = "/terms"
+  status = 301
+
+# ─────────────────────────────────────────────────────────────
+# SPA FALLBACK — must be last so the 301 rules above take priority
+# ─────────────────────────────────────────────────────────────
+[[redirects]]
+  from = "/*"
+  to   = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"

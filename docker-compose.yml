@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  bestold-web:
+    build: .
+    ports:
+      - "80:80"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    networks:
+      - bestold-network
+
+networks:
+  bestold-network:
+    driver: bridge

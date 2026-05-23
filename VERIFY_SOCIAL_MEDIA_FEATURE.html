@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BestOld - Social Media Feature Verification</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .status-box {
+            background: #f0f9ff;
+            border-left: 4px solid #3b82f6;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+        
+        .status-box.success {
+            background: #f0fdf4;
+            border-left-color: #22c55e;
+        }
+        
+        .status-box.warning {
+            background: #fffbeb;
+            border-left-color: #f59e0b;
+        }
+        
+        .status-box h2 {
+            color: #1e40af;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        
+        .status-box.success h2 {
+            color: #166534;
+        }
+        
+        .status-box.warning h2 {
+            color: #92400e;
+        }
+        
+        .step {
+            background: #f9fafb;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .step h3 {
+            color: #374151;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .code {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        
+        .kbd {
+            background: #374151;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9em;
+            border: 1px solid #4b5563;
+        }
+        
+        .button {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+        
+        .button:hover {
+            background: #5568d3;
+        }
+        
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .checklist li {
+            padding: 10px;
+            margin-bottom: 8px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .checklist li:before {
+            content: "✓";
+            color: #22c55e;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        
+        .screenshot {
+            background: #f3f4f6;
+            border: 2px dashed #9ca3af;
+            padding: 30px;
+            text-align: center;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .screenshot-title {
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 15px;
+        }
+        
+        .screenshot-example {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid #d1d5db;
+            text-align: left;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        
+        .highlight {
+            background: #fef3c7;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+        
+        .footer {
+            background: #f9fafb;
+            padding: 20px;
+            text-align: center;
+            color: #6b7280;
+            border-top: 1px solid #e5e7eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎉 Social Media Feature Added!</h1>
+            <p>Store owners can now add YouTube, Facebook & Instagram links</p>
+        </div>
+        
+        <div class="content">
+            <div class="status-box warning">
+                <h2>⚠️ Not Seeing the New Features?</h2>
+                <p>If you don't see the social media input fields on the Store Management page, your browser is showing you an old cached version. Follow the steps below to fix this.</p>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">1</span> Hard Refresh Your Browser</h3>
+                <p>This forces your browser to download the latest version of the website:</p>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li><strong>Windows/Linux:</strong> Press <span class="kbd">Ctrl</span> + <span class="kbd">Shift</span> + <span class="kbd">R</span></li>
+                    <li><strong>Mac:</strong> Press <span class="kbd">Cmd</span> + <span class="kbd">Shift</span> + <span class="kbd">R</span></li>
+                    <li><strong>Alternative:</strong> Press <span class="kbd">Ctrl</span> + <span class="kbd">F5</span> (Windows/Linux)</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">2</span> Clear Browser Cache</h3>
+                <p>If hard refresh doesn't work, clear your browser cache:</p>
+                <ol style="margin-top: 10px; margin-left: 20px;">
+                    <li>Press <span class="kbd">Ctrl</span> + <span class="kbd">Shift</span> + <span class="kbd">Delete</span> (or <span class="kbd">Cmd</span> + <span class="kbd">Shift</span> + <span class="kbd">Delete</span> on Mac)</li>
+                    <li>Select "Cached images and files"</li>
+                    <li>Choose time range: "Last hour" or "Last 24 hours"</li>
+                    <li>Click "Clear data"</li>
+                    <li>Restart your browser</li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">3</span> Verify the Update Loaded</h3>
+                <p>After refreshing, open the browser console to verify:</p>
+                <ol style="margin-top: 10px; margin-left: 20px;">
+                    <li>Press <span class="kbd">F12</span> to open Developer Tools</li>
+                    <li>Click on the "Console" tab</li>
+                    <li>Navigate to the Store Management page</li>
+                    <li>Look for this message:</li>
+                </ol>
+                <div class="code">
+🔄 StoreManagementPage loaded - Version with Social Media Links v1.0<br>
+✅ Social Media section should be visible after Phone Number field
+                </div>
+                <p style="margin-top: 10px;">If you see this message, the page has loaded correctly!</p>
+            </div>
+            
+            <div class="status-box success">
+                <h2>✅ What You Should See</h2>
+                <p><strong>On Store Management Page (Seller):</strong></p>
+                <ul class="checklist" style="margin-top: 15px;">
+                    <li>Phone Number field</li>
+                    <li><strong>Social Media Links</strong> section (NEW!)</li>
+                    <li>YouTube Channel input field</li>
+                    <li>Facebook Page input field</li>
+                    <li>Instagram Profile input field</li>
+                    <li>Trade License Upload section</li>
+                </ul>
+                
+                <p style="margin-top: 20px;"><strong>On Store Detail Page (Customer):</strong></p>
+                <ul class="checklist" style="margin-top: 15px;">
+                    <li>Store description and images</li>
+                    <li><strong>Connect With Us</strong> section (if store added links)</li>
+                    <li>YouTube, Facebook, Instagram buttons</li>
+                </ul>
+            </div>
+            
+            <div class="screenshot">
+                <div class="screenshot-title">📸 Expected Layout on Store Management Page</div>
+                <div class="screenshot-example">
+┌─────────────────────────────────────┐<br>
+│ Phone Number: [+1 (555) 123-4567]  │<br>
+├─────────────────────────────────────┤<br>
+│ <span class="highlight">Social Media Links (Optional)</span>     │<br>
+│ ─────────────────────────────────   │<br>
+│ YouTube Channel:                    │<br>
+│ [https://youtube.com/@channel]      │<br>
+│                                     │<br>
+│ Facebook Page:                      │<br>
+│ [https://facebook.com/page]         │<br>
+│                                     │<br>
+│ Instagram Profile:                  │<br>
+│ [https://instagram.com/profile]     │<br>
+├─────────────────────────────────────┤<br>
+│ Trade License Document              │<br>
+└─────────────────────────────────────┘
+                </div>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">4</span> Still Not Working?</h3>
+                <p>Try these additional steps:</p>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Try a different browser (Chrome, Firefox, Safari, Edge)</li>
+                    <li>Try incognito/private browsing mode</li>
+                    <li>Check if you're logged in as a <strong>Seller</strong> account (not Buyer)</li>
+                    <li>Verify you're on the correct page: <code>/seller/store-management</code></li>
+                </ul>
+                
+                <p style="margin-top: 15px;"><strong>Check Database (Advanced):</strong></p>
+                <div class="code">
+-- Run this in Supabase SQL Editor<br>
+SELECT column_name FROM information_schema.columns<br>
+WHERE table_name = 'stores'<br>
+AND column_name IN ('youtube_url', 'facebook_url', 'instagram_url');
+                </div>
+                <p style="margin-top: 10px;">Should return 3 rows. If not, the database migration needs to be applied.</p>
+            </div>
+            
+            <div class="status-box">
+                <h2>📚 Documentation</h2>
+                <p>For more detailed troubleshooting, see:</p>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li><strong>SOCIAL_MEDIA_TROUBLESHOOTING.md</strong> - Complete troubleshooting guide</li>
+                    <li><strong>SOCIAL_MEDIA_INTEGRATION.md</strong> - Feature documentation</li>
+                    <li><strong>IMPLEMENTATION_VERIFICATION.md</strong> - Technical verification</li>
+                </ul>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="#" onclick="window.location.reload(true); return false;" class="button">
+                    🔄 Hard Refresh This Page
+                </a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><strong>BestOld</strong> - Social Media Integration v1.0</p>
+            <p style="margin-top: 5px; font-size: 0.9em;">Last Updated: March 28, 2026</p>
+        </div>
+    </div>
+    
+    <script>
+        // Log to console for verification
+        console.log('%c🎉 Social Media Feature Verification Page Loaded', 'color: #667eea; font-size: 16px; font-weight: bold;');
+        console.log('%c✅ If you can see this message, your browser is working correctly', 'color: #22c55e; font-size: 14px;');
+        console.log('%cNext step: Hard refresh the BestOld application (Ctrl+Shift+R)', 'color: #f59e0b; font-size: 14px;');
+        
+        // Show browser info
+        console.log('Browser:', navigator.userAgent);
+        console.log('Cache API available:', 'caches' in window);
+    </script>
+</body>
+</html>

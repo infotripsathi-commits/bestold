@@ -1,0 +1,1 @@
+ALTER TABLE products ADD COLUMN car_details jsonb DEFAULT NULL;

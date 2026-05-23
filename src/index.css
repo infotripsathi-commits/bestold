@@ -1,0 +1,104 @@
+/* stylelint-disable */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here.
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+    --background: 0 0% 100%;
+    --foreground: 220 15% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 15% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 15% 15%;
+    --primary: 168 76% 42%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 220 15% 15%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 10% 46%;
+    --accent: 168 76% 95%;
+    --accent-foreground: 168 76% 25%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 168 76% 42%;
+    --chart-1: 168 76% 42%;
+    --chart-2: 220 70% 50%;
+    --chart-3: 280 65% 60%;
+    --chart-4: 30 80% 55%;
+    --chart-5: 340 75% 55%;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 220 15% 15%;
+    --sidebar-primary: 168 76% 42%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 168 76% 95%;
+    --sidebar-accent-foreground: 168 76% 25%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 168 76% 42%;
+  }
+
+  .dark {
+    --background: 220 20% 10%;
+    --foreground: 0 0% 95%;
+    --card: 220 20% 13%;
+    --card-foreground: 0 0% 95%;
+    --popover: 220 20% 13%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 168 76% 42%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 15% 20%;
+    --secondary-foreground: 0 0% 95%;
+    --muted: 220 15% 20%;
+    --muted-foreground: 220 10% 65%;
+    --accent: 168 76% 15%;
+    --accent-foreground: 168 76% 85%;
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: 168 76% 42%;
+    --chart-1: 168 76% 42%;
+    --chart-2: 220 70% 50%;
+    --chart-3: 280 65% 60%;
+    --chart-4: 30 80% 55%;
+    --chart-5: 340 75% 55%;
+    --sidebar-background: 220 20% 13%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 168 76% 42%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 168 76% 15%;
+    --sidebar-accent-foreground: 168 76% 85%;
+    --sidebar-border: 220 15% 20%;
+    --sidebar-ring: 168 76% 42%;
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}

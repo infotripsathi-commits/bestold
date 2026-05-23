@@ -1,0 +1,110 @@
+# BESTOLD — cPanel .htaccess for React SPA (Vite Build)
+# Place this file in your cPanel public_html/ folder
+
+# ─── Enable Rewrite Engine ──────────────────────────────────────────────────
+RewriteEngine On
+
+# ─── Force HTTPS (remove # from both lines below if SSL is active) ──────────
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
+
+# ─── SPA Routing — Redirect ALL non-file/directory requests to index.html ──
+# This is REQUIRED for React Router to work (e.g. /store/123, /chat, /login)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.html [L]
+
+# ─── Set correct MIME types ───────────────────────────────────────────────
+<IfModule mod_mime.c>
+  # Service Worker must be served as JavaScript
+  AddType application/javascript .js
+  AddType application/javascript .mjs
+
+  # Web App Manifest
+  AddType application/json .json
+
+  # Web Fonts
+  AddType font/woff2 .woff2
+  AddType font/woff .woff
+  AddType font/ttf .ttf
+  AddType font/otf .otf
+
+  # Common image formats
+  AddType image/webp .webp
+  AddType image/avif .avif
+</IfModule>
+
+# ─── Enable Compression (gzip) ──────────────────────────────────────────────
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE application/xml application/rss+xml
+  AddOutputFilterByType DEFLATE font/woff2 font/woff font/ttf font/otf
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# ─── Browser Caching ────────────────────────────────────────────────────────
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # HTML — no cache (SPA always fresh)
+  ExpiresByType text/html "access plus 0 seconds"
+
+  # API / JSON — no cache
+  ExpiresByType application/json "access plus 0 seconds"
+
+  # JS/CSS assets (Vite adds hash to filename) — cache 1 year
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+
+  # Images — cache 1 month
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/gif "access plus 1 month"
+  ExpiresByType image/webp "access plus 1 month"
+  ExpiresByType image/avif "access plus 1 month"
+  ExpiresByType image/svg+xml "access plus 1 month"
+
+  # Fonts — cache 1 year
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType font/ttf "access plus 1 year"
+  ExpiresByType font/otf "access plus 1 year"
+</IfModule>
+
+# ─── Service Worker — NEVER CACHE ───────────────────────────────────────────
+# The service worker must always be fresh so it can update itself
+<IfModule mod_headers.c>
+  <FilesMatch "service-worker\.js$">
+    Header set Cache-Control "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
+
+  # Manifest — short cache
+  <FilesMatch "manifest\.json$">
+    Header set Cache-Control "public, max-age=3600, must-revalidate"
+  </FilesMatch>
+
+  # index.html — no cache
+  <FilesMatch "index\.html$">
+    Header set Cache-Control "no-store, no-cache, must-revalidate"
+  </FilesMatch>
+
+  # Security Headers
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# ─── Disable Directory Browsing ───────────────────────────────────────────────
+Options -Indexes
+
+# ─── Handle 404 gracefully (SPA handles routing) ────────────────────────────
+ErrorDocument 404 /index.html
+
+# ─── PHP Settings (if needed by host) ───────────────────────────────────────
+# php_value upload_max_filesize 64M
+# php_value post_max_size 64M
+# php_value max_execution_time 300
+# php_value max_input_time 300

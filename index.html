@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="shortcut icon" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
+    
+    <!-- Primary Meta Tags -->
+    <title>BESTOLD - Buy & Sell Second-Hand Goods | Multi-Vendor Marketplace</title>
+    <meta name="title" content="BESTOLD - Buy & Sell Second-Hand Goods | Multi-Vendor Marketplace" />
+    <meta name="description" content="BESTOLD is the best platform to buy and sell second-hand goods. Create your store, chat with sellers, and find amazing deals on pre-owned items. Join thousands of sellers and buyers today!" />
+    <meta name="keywords" content="second hand goods, used items, buy sell marketplace, pre-owned products, thrift store online, second hand store, resale platform, vintage items, refurbished goods" />
+    <meta name="author" content="BESTOLD" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+    <meta name="revisit-after" content="7 days" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="/icon-192x192.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icon-192x192.png" />
+    <link rel="apple-touch-icon" sizes="167x167" href="/icon-192x192.png" />
+    
+    <!-- Apple Splash Screens -->
+    <meta name="apple-mobile-web-app-title" content="BESTOLD" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    
+    <!-- Theme Colors -->
+    <meta name="theme-color" content="#16a34a" />
+    <meta name="msapplication-TileColor" content="#16a34a" />
+    <meta name="msapplication-navbutton-color" content="#16a34a" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="#16a34a" />
+    
+    <!-- Mobile Optimizations -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="date=no" />
+    <meta name="format-detection" content="address=no" />
+    <meta name="format-detection" content="email=no" />
+    
+    <!-- Disable tap highlight on IE -->
+    <meta name="msapplication-tap-highlight" content="no" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://bestold.com/" />
+    <meta property="og:title" content="BESTOLD - Buy & Sell Second-Hand Goods | Multi-Vendor Marketplace" />
+    <meta property="og:description" content="BESTOLD is the best platform to buy and sell second-hand goods. Create your store, chat with sellers, and find amazing deals on pre-owned items." />
+    <meta property="og:image" content="https://bestold.in/favicon.png" />
+    <meta property="og:site_name" content="BESTOLD" />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://bestold.com/" />
+    <meta property="twitter:title" content="BESTOLD - Buy & Sell Second-Hand Goods" />
+    <meta property="twitter:description" content="Buy and sell second-hand goods on BESTOLD. Create your store and start selling today!" />
+    <meta property="twitter:image" content="https://bestold.in/favicon.png" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://bestold.com/" />
+    
+    <!-- Structured Data: Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "BESTOLD",
+      "url": "https://bestold.in",
+      "logo": "https://bestold.in/favicon.png",
+      "sameAs": [
+        "https://bestold.in"
+      ]
+    }
+    </script>
+    
+    <!-- Preconnect to improve performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Redirect www → non-www before React loads (fixes Google Search Console robots.txt fetch for www variant) -->
+    <script>
+      (function() {
+        if (window.location.hostname.indexOf('www.') === 0) {
+          var url = window.location.href.replace('www.', '');
+          window.location.replace(url);
+        }
+      })();
+    </script>
+
+    <!--
+      Capture beforeinstallprompt IMMEDIATELY before React mounts.
+      This event often fires before the first React render, so an
+      addEventListener inside useEffect would miss it on fast hosts like
+      bestold.in. We park the event on window.__pwaInstallPrompt and
+      also dispatch a custom event so already-mounted components can react.
+    -->
+    <script>
+      (function() {
+        window.__pwaInstallPrompt = null;
+        window.addEventListener('beforeinstallprompt', function(e) {
+          e.preventDefault();
+          window.__pwaInstallPrompt = e;
+          window.dispatchEvent(new CustomEvent('pwa-installable'));
+        });
+        window.addEventListener('appinstalled', function() {
+          window.__pwaInstallPrompt = null;
+          window.dispatchEvent(new CustomEvent('pwa-installed'));
+        });
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

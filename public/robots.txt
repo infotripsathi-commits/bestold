@@ -1,0 +1,56 @@
+# robots.txt for BESTOLD — Second-Hand Goods Marketplace
+# Canonical domain: https://bestold.in
+#
+# www → non-www redirect is handled client-side in index.html.
+# Googlebot executes JS and follows the redirect.
+
+User-agent: *
+# Block private/authenticated areas
+Disallow: /admin/
+Disallow: /account/
+Disallow: /settings/
+Disallow: /chat/
+Disallow: /checkout/
+Disallow: /seller/
+Disallow: /notifications/
+Disallow: /favorites/
+Disallow: /my-orders/
+Disallow: /phone-submission-chat/
+
+# Block legacy redirect sources — prevents crawl budget waste on 301 chains
+# (These all redirect to canonical URLs; Googlebot should never index them)
+Disallow: /lander
+Disallow: /privacy-policy
+Disallow: /product/
+Disallow: /store/
+Disallow: /category/
+Disallow: /products$
+Disallow: /business-page/
+Disallow: /vendor/
+Disallow: /contact-us
+Disallow: /refund
+Disallow: /terms-of-service
+Disallow: /return-policy
+
+# Block internal API paths
+Disallow: /api/
+
+# Sitemap location (canonical, non-www, HTTPS)
+Sitemap: https://bestold.in/sitemap.xml
+
+# ── Per-bot rules ──────────────────────────────────────────────────────────────
+# Googlebot honours Allow/Disallow above; Crawl-delay is ignored by Google.
+User-agent: Googlebot
+Disallow:
+
+User-agent: Bingbot
+Crawl-delay: 1
+
+User-agent: Slurp
+Crawl-delay: 1
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /

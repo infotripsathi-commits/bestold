@@ -1,0 +1,206 @@
+{
+  "buildCommand": "npm run build:prod",
+  "outputDirectory": "dist",
+  "framework": "vite",
+
+  "redirects": [
+    {
+      "note": "── www → non-www (must be first so host-based redirects fire before path rules)",
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.bestold.in" }],
+      "destination": "https://bestold.in/:path*",
+      "permanent": true
+    },
+    {
+      "note": "── Trailing-slash normalisation ─────────────────────────────────────────────",
+      "source": "/products/:id/",
+      "destination": "/products/:id",
+      "permanent": true
+    },
+    {
+      "note": "Trailing slash on store detail pages",
+      "source": "/stores/:id/",
+      "destination": "/stores/:id",
+      "permanent": true
+    },
+    {
+      "note": "Trailing slash on city landing pages",
+      "source": "/location/:slug/",
+      "destination": "/location/:slug",
+      "permanent": true
+    },
+    {
+      "note": "Static page trailing slashes",
+      "source": "/stores/",
+      "destination": "/stores",
+      "permanent": true
+    },
+    {
+      "source": "/search/",
+      "destination": "/search",
+      "permanent": true
+    },
+    {
+      "source": "/categories/",
+      "destination": "/categories",
+      "permanent": true
+    },
+    {
+      "note": "/franchises -> /elite-partners (old path)",
+      "source": "/franchises/",
+      "destination": "/elite-partners",
+      "permanent": true
+    },
+    {
+      "source": "/franchises",
+      "destination": "/elite-partners",
+      "permanent": true
+    },
+    {
+      "source": "/become-franchise",
+      "destination": "/become-elite-partner",
+      "permanent": true
+    },
+    {
+      "note": "Trailing-slash normalisation for new paths",
+      "source": "/elite-partners/",
+      "destination": "/elite-partners",
+      "permanent": true
+    },
+    {
+      "source": "/become-elite-partner/",
+      "destination": "/become-elite-partner",
+      "permanent": true
+    },
+    {
+      "source": "/about/",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/privacy/",
+      "destination": "/privacy",
+      "permanent": true
+    },
+    {
+      "source": "/terms/",
+      "destination": "/terms",
+      "permanent": true
+    },
+    {
+      "source": "/store-locator/",
+      "destination": "/store-locator",
+      "permanent": true
+    },
+    {
+      "note": "── Stale sitemap URLs (old sitemap.ts generated these wrong paths) ────────────",
+      "source": "/store/:id",
+      "destination": "/stores/:id",
+      "permanent": true
+    },
+    {
+      "note": "No category-detail page — redirect to categories listing",
+      "source": "/category/:id",
+      "destination": "/categories",
+      "permanent": true
+    },
+    {
+      "note": "Old sitemap static pages that never existed as real routes",
+      "source": "/terms-of-service",
+      "destination": "/terms",
+      "permanent": true
+    },
+    {
+      "source": "/return-policy",
+      "destination": "/terms",
+      "permanent": true
+    },
+    {
+      "note": "── Legacy URL redirects (from Google Search Console audit) ─────────────────",
+      "source": "/lander",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "note": "Old privacy-policy slug",
+      "source": "/privacy-policy",
+      "destination": "/privacy",
+      "permanent": true
+    },
+    {
+      "note": "/product/:id singular → /products/:id — :id is captured and forwarded by Vercel",
+      "source": "/product/:id",
+      "destination": "/products/:id",
+      "permanent": true
+    },
+    {
+      "note": "Old products listing URL with query params (sub_category_id etc.) → /search. Vercel forwards query strings automatically.",
+      "source": "/products",
+      "destination": "/search",
+      "permanent": true
+    },
+    {
+      "note": "Old about page slug",
+      "source": "/business-page/about",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "note": "Old vendor registration URL",
+      "source": "/vendor/auth/registration/index",
+      "destination": "/register",
+      "permanent": true
+    },
+    {
+      "note": "No dedicated contact page — send to homepage",
+      "source": "/contact-us",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "note": "Refund policy lives inside Terms & Conditions",
+      "source": "/refund",
+      "destination": "/terms",
+      "permanent": true
+    }
+  ],
+
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        }
+      ]
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
+}

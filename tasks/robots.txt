@@ -1,0 +1,55 @@
+# robots.txt for BESTOLD - Second-Hand Goods Marketplace
+# Domain: bestold.in
+
+# Allow all search engines to crawl the site
+User-agent: *
+Allow: /
+
+# Disallow admin and private pages
+Disallow: /admin/
+Disallow: /account/
+Disallow: /chat/
+Disallow: /checkout/
+Disallow: /api/
+Disallow: /seller/
+Disallow: /seller
+
+# Disallow legacy/old URLs that redirect (prevents indexing duplicates)
+Disallow: /lander
+Disallow: /privacy-policy
+Disallow: /product/
+Disallow: /business-page/
+Disallow: /vendor/
+Disallow: /contact-us
+Disallow: /refund
+
+# Allow important public pages
+Allow: /products/
+Allow: /stores/
+Allow: /categories/
+Allow: /search/
+Allow: /about
+Allow: /privacy
+Allow: /terms
+Allow: /franchises
+Allow: /become-franchise
+Allow: /store-locator
+
+# Sitemap
+Sitemap: https://bestold.in/sitemap.xml
+
+# Crawl delay (optional, helps prevent server overload)
+Crawl-delay: 1
+
+# Specific rules for major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
