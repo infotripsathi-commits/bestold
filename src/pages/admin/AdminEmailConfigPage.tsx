@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
-import { Mail, Plus, Trash2, CheckCircle2, XCircle, Send, Eye, EyeOff } from 'lucide-react';
+import { Mail, Plus, Trash2, CheckCircle2, XCircle, Send, Eye, EyeOff, Pencil, X } from 'lucide-react';
 import { 
   getAllEmailConfigurations, 
   createEmailConfiguration, 
@@ -25,6 +25,14 @@ export default function AdminEmailConfigPage() {
   const [showForm, setShowForm] = useState(false);
   const [testingEmail, setTestingEmail] = useState<string>('');
   const [showApiKey, setShowApiKey] = useState<{ [key: string]: boolean }>({});
+
+  // Edit state
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editFormData, setEditFormData] = useState({
+    sender_email: '',
+    sender_name: '',
+    api_key: '',
+  });
   
   // Form state
   const [formData, setFormData] = useState({
@@ -125,6 +133,47 @@ export default function AdminEmailConfigPage() {
     } catch (error) {
       console.error('Error deleting configuration:', error);
       toast.error('Failed to delete configuration');
+    }
+  };
+
+  const handleEdit = (config: EmailConfiguration) => {
+    setEditingId(config.id);
+    setEditFormData({
+      sender_email: config.sender_email,
+      sender_name: config.sender_name,
+      api_key: config.api_key,
+    });
+  };
+
+  const handleCancelEdit = () => {
+    setEditingId(null);
+    setEditFormData({ sender_email: '', sender_name: '', api_key: '' });
+  };
+
+  const handleUpdate = async (configId: string) => {
+    if (!editFormData.sender_email || !editFormData.sender_name) {
+      toast.error('Sender email and name are required');
+      return;
+    }
+    if (isPublicEmailDomain(editFormData.sender_email)) {
+      toast.error(
+        `Cannot use ${editFormData.sender_email.split('@')[1]}. Use your verified domain email (e.g. noreply@bestold.in).`,
+        { duration: 5000 }
+      );
+      return;
+    }
+    try {
+      await updateEmailConfiguration(configId, {
+        sender_email: editFormData.sender_email,
+        sender_name: editFormData.sender_name,
+        ...(editFormData.api_key ? { api_key: editFormData.api_key } : {}),
+      });
+      toast.success('Email configuration updated successfully');
+      handleCancelEdit();
+      loadConfigurations();
+    } catch (error) {
+      console.error('Error updating configuration:', error);
+      toast.error('Failed to update configuration');
     }
   };
 
@@ -506,6 +555,14 @@ export default function AdminEmailConfigPage() {
                     </Button>
                   )}
                   <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleEdit(config)}
+                  >
+                    <Pencil className="h-4 w-4 mr-2" />
+                    Edit
+                  </Button>
+                  <Button
                     variant="destructive"
                     size="sm"
                     onClick={() => handleDelete(config.id)}
@@ -514,6 +571,73 @@ export default function AdminEmailConfigPage() {
                     Delete
                   </Button>
                 </div>
+
+                {/* Inline Edit Form */}
+                {editingId === config.id && (
+                  <div className="border border-border rounded-lg p-4 mt-2 space-y-4 bg-muted/30">
+                    <div className="flex items-center justify-between">
+                      <p className="text-sm font-semibold">Edit Configuration</p>
+                      <Button variant="ghost" size="sm" onClick={handleCancelEdit}>
+                        <X className="h-4 w-4" />
+                      </Button>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor={`edit-sender-name-${config.id}`}>Sender Name</Label>
+                        <Input
+                          id={`edit-sender-name-${config.id}`}
+                          type="text"
+                          placeholder="BESTOLD"
+                          value={editFormData.sender_name}
+                          onChange={(e) => setEditFormData({ ...editFormData, sender_name: e.target.value })}
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor={`edit-sender-email-${config.id}`}>Sender Email *</Label>
+                        <Input
+                          id={`edit-sender-email-${config.id}`}
+                          type="email"
+                          placeholder="noreply@bestold.in"
+                          value={editFormData.sender_email}
+                          onChange={(e) => setEditFormData({ ...editFormData, sender_email: e.target.value })}
+                        />
+                        {editFormData.sender_email && !isPublicEmailDomain(editFormData.sender_email) && (
+                          <p className="text-xs text-green-600">
+                            ✅ Make sure this is verified on your Resend domain list
+                          </p>
+                        )}
+                        {editFormData.sender_email && isPublicEmailDomain(editFormData.sender_email) && (
+                          <p className="text-xs text-destructive">
+                            ❌ Cannot use public email domains. Use your own domain (e.g. noreply@bestold.in)
+                          </p>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor={`edit-api-key-${config.id}`}>
+                        API Key <span className="text-muted-foreground font-normal">(leave blank to keep current)</span>
+                      </Label>
+                      <Input
+                        id={`edit-api-key-${config.id}`}
+                        type="password"
+                        placeholder="Leave blank to keep existing key"
+                        value={editFormData.api_key}
+                        onChange={(e) => setEditFormData({ ...editFormData, api_key: e.target.value })}
+                      />
+                    </div>
+
+                    <div className="flex gap-2">
+                      <Button size="sm" onClick={() => handleUpdate(config.id)}>
+                        Save Changes
+                      </Button>
+                      <Button size="sm" variant="outline" onClick={handleCancelEdit}>
+                        Cancel
+                      </Button>
+                    </div>
+                  </div>
+                )}
               </CardContent>
             </Card>
           ))
