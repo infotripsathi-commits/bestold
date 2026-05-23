@@ -195,6 +195,22 @@ export default function StoreManagementPage() {
         toast.success('Store created successfully! Your store will be live after admin verification.', {
           duration: 6000,
         });
+
+        // Fire-and-forget: send welcome email to the seller
+        if (user?.email) {
+          supabase.functions
+            .invoke('send-store-welcome-email', {
+              body: {
+                email: user.email,
+                storeName: formData.name,
+                sellerName: user.user_metadata?.full_name || user.email.split('@')[0],
+              },
+            })
+            .then(({ error }) => {
+              if (error) console.warn('[StoreManagement] Welcome email failed:', error);
+            });
+        }
+
         navigate('/seller/dashboard');
       }
       await loadStore();

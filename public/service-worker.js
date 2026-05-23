@@ -106,6 +106,8 @@ self.addEventListener('fetch', (event) => {
   }
 
   // Handle navigation requests - Network first, cache fallback
+  // SPA fix: any route that fails network+exact-cache falls back to /index.html
+  // so React Router renders the correct client-side page.
   if (request.mode === 'navigate') {
     event.respondWith(
       fetch(request)
@@ -118,13 +120,19 @@ self.addEventListener('fetch', (event) => {
           return response;
         })
         .catch(() => {
-          // Try cache first
+          // Try exact URL cache first
           return caches.match(request).then((cachedResponse) => {
             if (cachedResponse) {
               return cachedResponse;
             }
-            // Return offline page as last resort
-            return caches.match('/offline.html');
+            // SPA fallback: serve index.html so React Router handles the route
+            return caches.match('/index.html').then((spaFallback) => {
+              if (spaFallback) {
+                return spaFallback;
+              }
+              // Last resort: offline page
+              return caches.match('/offline.html');
+            });
           });
         })
     );
