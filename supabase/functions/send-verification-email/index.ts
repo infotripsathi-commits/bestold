@@ -31,7 +31,10 @@ Deno.serve(async (req) => {
     });
 
     // Get active email configuration using RPC function
-    const { data: config, error: configError } = await supabase.rpc('get_active_email_configuration');
+    const { data: configData, error: configError } = await supabase.rpc('get_active_email_configuration');
+
+    // RPC returns a SETOF (array) — pick the first row
+    const config = Array.isArray(configData) ? configData[0] : configData;
 
     if (configError) {
       console.error('Error fetching email configuration:', configError);

@@ -27,7 +27,10 @@ Deno.serve(async (req) => {
     );
 
     // Fetch active email configuration
-    const { data: config, error: configError } = await supabase.rpc('get_active_email_configuration');
+    const { data: configData, error: configError } = await supabase.rpc('get_active_email_configuration');
+
+    // RPC returns a SETOF (array) — pick the first row
+    const config = Array.isArray(configData) ? configData[0] : configData;
 
     if (configError || !config) {
       console.error('[store-approved] Email config not found:', configError);
