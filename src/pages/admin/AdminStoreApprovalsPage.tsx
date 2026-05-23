@@ -21,7 +21,7 @@ import {
   TabsTrigger,
 } from '@/components/ui/tabs';
 import { CheckCircle, XCircle, Clock, MapPin, Phone, FileText, Image as ImageIcon, Store as StoreIcon, ChevronLeft, ChevronRight, X, ArrowRight, UserPlus } from 'lucide-react';
-import { getPendingStores, getAllStoresForAdmin, approveStore, rejectStore, getAllSellerApplications } from '@/db/api';
+import { getPendingStores, getAllStoresForAdmin, approveStore, rejectStore, getAllSellerApplications, supabase } from '@/db/api';
 import { useAuth } from '@/contexts/AuthContext';
 import type { Store } from '@/types';
 import { toast } from 'sonner';
@@ -70,11 +70,38 @@ export default function AdminStoreApprovalsPage() {
 
   const handleApprove = async (storeId: string) => {
     if (!user) return;
-    
+
     setProcessing(true);
     try {
       await approveStore(storeId, user.id);
       toast.success('Store approved successfully');
+
+      // Send approval email to the seller
+      const store = stores.find((s) => s.id === storeId);
+      const sellerEmail = store?.seller?.email;
+      const sellerName = store?.seller?.full_name || store?.seller?.email?.split('@')[0];
+      if (sellerEmail && store) {
+        supabase.functions
+          .invoke('send-store-approved-email', {
+            body: {
+              email: sellerEmail,
+              storeName: store.name,
+              sellerName,
+              storeUrl: `https://bestold.in/stores/${storeId}`,
+            },
+          })
+          .then(({ error }) => {
+            if (error) {
+              error.context?.text().then((msg: string) => {
+                console.error('[AdminApproval] Approval email failed:', msg || error.message);
+                toast.warning(`Store approved but approval email failed: ${msg || error.message}`);
+              });
+            } else {
+              toast.info(`Approval email sent to ${sellerEmail}`);
+            }
+          });
+      }
+
       loadStores();
     } catch (error: any) {
       toast.error(error.message || 'Failed to approve store');

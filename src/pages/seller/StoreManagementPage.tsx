@@ -207,7 +207,12 @@ export default function StoreManagementPage() {
               },
             })
             .then(({ error }) => {
-              if (error) console.warn('[StoreManagement] Welcome email failed:', error);
+              if (error) {
+                error.context?.text().then((msg: string) => {
+                  console.error('[StoreManagement] Welcome email failed:', msg || error.message);
+                  toast.warning(`Store created but welcome email failed to send: ${msg || error.message}`);
+                });
+              }
             });
         }
 
