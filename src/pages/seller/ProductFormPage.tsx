@@ -585,9 +585,12 @@ export default function ProductFormPage() {
                         {carBrands.length === 0 ? (
                           <SelectItem value="__none__" disabled>No brands available</SelectItem>
                         ) : (
-                          carBrands.map((b) => (
-                            <SelectItem key={b.id} value={b.name}>{b.name}</SelectItem>
-                          ))
+                          <>
+                            {carBrands.map((b) => (
+                              <SelectItem key={b.id} value={b.name}>{b.name}</SelectItem>
+                            ))}
+                            <SelectItem value="Others">Others</SelectItem>
+                          </>
                         )}
                       </SelectContent>
                     </Select>
@@ -705,9 +708,12 @@ export default function ProductFormPage() {
                         {bikeBrands.length === 0 ? (
                           <SelectItem value="__none__" disabled>No brands available</SelectItem>
                         ) : (
-                          bikeBrands.map((b) => (
-                            <SelectItem key={b.id} value={b.name}>{b.name}</SelectItem>
-                          ))
+                          <>
+                            {bikeBrands.map((b) => (
+                              <SelectItem key={b.id} value={b.name}>{b.name}</SelectItem>
+                            ))}
+                            <SelectItem value="Others">Others</SelectItem>
+                          </>
                         )}
                       </SelectContent>
                     </Select>
@@ -817,9 +823,12 @@ export default function ProductFormPage() {
                         {phoneBrands.length === 0 ? (
                           <SelectItem value="__none__" disabled>No brands available</SelectItem>
                         ) : (
-                          phoneBrands.map((b) => (
-                            <SelectItem key={b.id} value={b.name}>{b.name}</SelectItem>
-                          ))
+                          <>
+                            {phoneBrands.map((b) => (
+                              <SelectItem key={b.id} value={b.name}>{b.name}</SelectItem>
+                            ))}
+                            <SelectItem value="Others">Others</SelectItem>
+                          </>
                         )}
                       </SelectContent>
                     </Select>
