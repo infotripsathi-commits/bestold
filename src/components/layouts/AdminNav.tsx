@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { LayoutDashboard, Users, Store, Package, Star, Grid3x3, Image, CheckCircle, MapPin, Settings, Smartphone, UserPlus, TrendingUp, Mail, Database, MessageCircle, Award, Wallet, BarChart3, FileText, QrCode, Sparkles, Sliders, PackageCheck, Car, Bike } from 'lucide-react';
+import { LayoutDashboard, Users, Store, Package, Star, Grid3x3, Image, CheckCircle, MapPin, Settings, Smartphone, UserPlus, TrendingUp, Mail, Database, MessageCircle, Award, Wallet, BarChart3, FileText, QrCode, Sparkles, Sliders, PackageCheck, Car, Bike, Send } from 'lucide-react';
 
 const adminLinks = [
   { path: '/admin', label: 'Dashboard', icon: LayoutDashboard },
@@ -29,6 +29,7 @@ const adminLinks = [
   { path: '/admin/phone-brands', label: 'Phone Brands', icon: Smartphone },
   { path: '/admin/feedback', label: 'Feedback', icon: MessageCircle },
   { path: '/admin/email-config', label: 'Email Config', icon: Mail },
+  { path: '/admin/email-broadcast', label: 'Email Broadcast', icon: Send },
   { path: '/admin/backup', label: 'Backup', icon: Database },
   { path: '/admin/settings', label: 'Settings', icon: Settings },
 ];

@@ -115,6 +115,7 @@ const MonitoringDashboard = lazy(() => import('./pages/admin/MonitoringDashboard
 const RecoveryDashboard = lazy(() => import('./pages/admin/RecoveryDashboard'));
 const SEOManagementPage = lazy(() => import('./pages/admin/SEOManagementPage'));
 const AdminEmailConfigPage = lazy(() => import('./pages/admin/AdminEmailConfigPage'));
+const AdminEmailBroadcastPage = lazy(() => import('./pages/admin/AdminEmailBroadcastPage'));
 const AdminBackupPage = lazy(() => import('./pages/admin/AdminBackupPage'));
 const AdminFeedbackPage = lazy(() => import('./pages/admin/AdminFeedbackPage'));
 const AdminPaymentSettingsPage = lazy(() => import('./pages/admin/AdminPaymentSettingsPage'));
@@ -243,6 +244,7 @@ const routes: RouteConfig[] = [
   { name: 'Admin Franchise Analytics', path: '/admin/franchise-analytics', element: <AdminFranchiseAnalyticsPage /> },
   { name: 'Admin Promotions', path: '/admin/promotions', element: <AdminPromotionsPage /> },
   { name: 'Admin Email Config', path: '/admin/email-config', element: <AdminEmailConfigPage /> },
+  { name: 'Admin Email Broadcast', path: '/admin/email-broadcast', element: <AdminEmailBroadcastPage /> },
   { name: 'Admin Backup', path: '/admin/backup', element: <AdminBackupPage /> },
   { name: 'Admin Feedback', path: '/admin/feedback', element: <AdminFeedbackPage /> },
   { name: 'Admin Icon Preview Analytics', path: '/admin/icon-preview-analytics', element: <AdminIconPreviewAnalyticsPage /> },
