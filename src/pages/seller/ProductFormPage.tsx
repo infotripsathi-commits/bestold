@@ -71,6 +71,12 @@ function isPhoneCategory(categoryName?: string) {
   return n.includes('mobile') || n.includes('phone') || n.includes('smartphone');
 }
 
+function isPhoneAccessorySubcategory(subcategoryName?: string) {
+  if (!subcategoryName) return false;
+  const n = subcategoryName.toLowerCase();
+  return n.includes('accessor') || n.includes('case') || n.includes('charger') || n.includes('cable') || n.includes('screen guard');
+}
+
 const DEFAULT_CAR_DETAILS: CarDetails = {
   brand: '',
   year: CURRENT_YEAR,
@@ -358,9 +364,10 @@ export default function ProductFormPage() {
     }
 
     const selectedCat = categories.find(c => c.id === formData.category_id);
+    const selectedSub = subcategories.find(s => s.id === formData.subcategory_id);
     const isCar = isCarCategory(selectedCat?.name);
     const isBike = isBikeCategory(selectedCat?.name);
-    const isPhone = isPhoneCategory(selectedCat?.name);
+    const isPhone = isPhoneCategory(selectedCat?.name) && !isPhoneAccessorySubcategory(selectedSub?.name);
 
     if (isCar) {
       if (!carDetails.brand.trim()) { toast.error('Brand is required'); return; }
@@ -452,9 +459,10 @@ export default function ProductFormPage() {
   }
 
   const selectedCategoryName = categories.find(c => c.id === formData.category_id)?.name;
+  const selectedSubcategoryName = subcategories.find(s => s.id === formData.subcategory_id)?.name;
   const isCar = isCarCategory(selectedCategoryName);
   const isBike = isBikeCategory(selectedCategoryName);
-  const isPhone = isPhoneCategory(selectedCategoryName);
+  const isPhone = isPhoneCategory(selectedCategoryName) && !isPhoneAccessorySubcategory(selectedSubcategoryName);
 
   return (
     <div className="min-h-screen py-8 pb-24 md:pb-8">
