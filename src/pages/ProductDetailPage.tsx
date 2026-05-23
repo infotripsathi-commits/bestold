@@ -342,6 +342,7 @@ export default function ProductDetailPage() {
                           src={image}
                           alt={`${product.title} - Image ${index + 1}`}
                           className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                          loading={index === 0 ? 'eager' : 'lazy'}
                         />
                       </div>
                     </CarouselItem>
@@ -771,6 +772,7 @@ export default function ProductDetailPage() {
                           src={relatedProduct.images[0]}
                           alt={relatedProduct.title}
                           className="w-full h-full object-cover"
+                          loading="lazy"
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">

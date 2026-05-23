@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { lazy, type ReactNode } from 'react';
 import { Navigate, useParams, useLocation } from 'react-router-dom';
 
 // Helper component for legacy product URL redirects (/product/:id -> /products/:id)
@@ -20,7 +20,6 @@ function ProductsListingLegacyRedirect() {
   const subCategoryId = params.get('sub_category_id');
   const categoryId = params.get('category_id');
 
-  // Build search URL preserving relevant query params
   const searchParams = new URLSearchParams();
   if (subCategoryId) searchParams.set('subcategory', subCategoryId);
   if (categoryId) searchParams.set('category', categoryId);
@@ -31,105 +30,103 @@ function ProductsListingLegacyRedirect() {
   return <Navigate to={to} replace />;
 }
 
-// Auth Pages
-import LoginPage from './pages/auth/LoginPage';
-import RegisterPage from './pages/auth/RegisterPage';
-import ForgotPasswordPage from './pages/auth/ForgotPasswordPage';
-import ResetPasswordPage from './pages/auth/ResetPasswordPage';
-import EmailVerificationPage from './pages/auth/EmailVerificationPage';
-import AuthCallbackPage from './pages/auth/AuthCallbackPage';
+// ─── Auth Pages ────────────────────────────────────────────────────────────────
+const LoginPage = lazy(() => import('./pages/auth/LoginPage'));
+const RegisterPage = lazy(() => import('./pages/auth/RegisterPage'));
+const ForgotPasswordPage = lazy(() => import('./pages/auth/ForgotPasswordPage'));
+const ResetPasswordPage = lazy(() => import('./pages/auth/ResetPasswordPage'));
+const EmailVerificationPage = lazy(() => import('./pages/auth/EmailVerificationPage'));
+const AuthCallbackPage = lazy(() => import('./pages/auth/AuthCallbackPage'));
 
-// Public Pages
-import HomePage from './pages/HomePage';
-import SearchPage from './pages/SearchPage';
-import StoreDetailPage from './pages/StoreDetailPage';
-import ProductDetailPage from './pages/ProductDetailPage';
-import AllCategoriesPage from './pages/AllCategoriesPage';
-import AllStoresPage from './pages/AllStoresPage';
-import StoreLocatorPage from './pages/StoreLocatorPage';
-import CityLandingPage from './pages/CityLandingPage';
-import AboutUsPage from './pages/AboutUsPage';
-import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
-import TermsConditionsPage from './pages/TermsConditionsPage';
-import FranchiseListingPage from './pages/FranchiseListingPage';
-import BecomeFranchisePage from './pages/BecomeFranchisePage';
+// ─── Public Pages ──────────────────────────────────────────────────────────────
+const HomePage = lazy(() => import('./pages/HomePage'));
+const SearchPage = lazy(() => import('./pages/SearchPage'));
+const StoreDetailPage = lazy(() => import('./pages/StoreDetailPage'));
+const ProductDetailPage = lazy(() => import('./pages/ProductDetailPage'));
+const AllCategoriesPage = lazy(() => import('./pages/AllCategoriesPage'));
+const AllStoresPage = lazy(() => import('./pages/AllStoresPage'));
+const StoreLocatorPage = lazy(() => import('./pages/StoreLocatorPage'));
+const CityLandingPage = lazy(() => import('./pages/CityLandingPage'));
+const AboutUsPage = lazy(() => import('./pages/AboutUsPage'));
+const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'));
+const TermsConditionsPage = lazy(() => import('./pages/TermsConditionsPage'));
+const FranchiseListingPage = lazy(() => import('./pages/FranchiseListingPage'));
+const BecomeFranchisePage = lazy(() => import('./pages/BecomeFranchisePage'));
 
-// User Pages
-import AccountPage from './pages/AccountPage';
-import ChatPage from './pages/ChatPage';
-import PhoneSubmissionChatPage from './pages/PhoneSubmissionChatPage';
-import FavoritesPage from './pages/FavoritesPage';
-import CheckoutPage from './pages/CheckoutPage';
-import StorePickupCheckoutPage from './pages/StorePickupCheckoutPage';
-import OrderConfirmationPage from './pages/OrderConfirmationPage';
-import MyOrdersPage from './pages/MyOrdersPage';
-import NotificationsPage from './pages/NotificationsPage';
-import SettingsPage from './pages/SettingsPage';
+// ─── User Pages ────────────────────────────────────────────────────────────────
+const AccountPage = lazy(() => import('./pages/AccountPage'));
+const ChatPage = lazy(() => import('./pages/ChatPage'));
+const PhoneSubmissionChatPage = lazy(() => import('./pages/PhoneSubmissionChatPage'));
+const FavoritesPage = lazy(() => import('./pages/FavoritesPage'));
+const CheckoutPage = lazy(() => import('./pages/CheckoutPage'));
+const StorePickupCheckoutPage = lazy(() => import('./pages/StorePickupCheckoutPage'));
+const OrderConfirmationPage = lazy(() => import('./pages/OrderConfirmationPage'));
+const MyOrdersPage = lazy(() => import('./pages/MyOrdersPage'));
+const NotificationsPage = lazy(() => import('./pages/NotificationsPage'));
+const SettingsPage = lazy(() => import('./pages/SettingsPage'));
 
-// Seller Pages
-import SellerDashboard from './pages/seller/SellerDashboard';
-import StoreManagementPage from './pages/seller/StoreManagementPage';
-import ProductManagementPage from './pages/seller/ProductManagementPage';
-import ProductFormPage from './pages/seller/ProductFormPage';
-import SellerOnlineOrdersPage from './pages/seller/SellerOnlineOrdersPage';
-import FranchisePayoutPage from './pages/seller/FranchisePayoutPage';
-import SellerAnalyticsPage from './pages/seller/SellerAnalyticsPage';
-import SellerInsightsPage from './pages/SellerInsightsPage';
-import ABTestManagementPage from './pages/ABTestManagementPage';
-import ABTestResultsPage from './pages/ABTestResultsPage';
-import SellerPayoutsPage from './pages/SellerPayoutsPage';
-import LocationManagementPage from './pages/seller/LocationManagementPage';
+// ─── Seller Pages ──────────────────────────────────────────────────────────────
+const SellerDashboard = lazy(() => import('./pages/seller/SellerDashboard'));
+const StoreManagementPage = lazy(() => import('./pages/seller/StoreManagementPage'));
+const ProductManagementPage = lazy(() => import('./pages/seller/ProductManagementPage'));
+const ProductFormPage = lazy(() => import('./pages/seller/ProductFormPage'));
+const SellerOnlineOrdersPage = lazy(() => import('./pages/seller/SellerOnlineOrdersPage'));
+const FranchisePayoutPage = lazy(() => import('./pages/seller/FranchisePayoutPage'));
+const SellerAnalyticsPage = lazy(() => import('./pages/seller/SellerAnalyticsPage'));
+const SellerInsightsPage = lazy(() => import('./pages/SellerInsightsPage'));
+const ABTestManagementPage = lazy(() => import('./pages/ABTestManagementPage'));
+const ABTestResultsPage = lazy(() => import('./pages/ABTestResultsPage'));
+const SellerPayoutsPage = lazy(() => import('./pages/SellerPayoutsPage'));
+const LocationManagementPage = lazy(() => import('./pages/seller/LocationManagementPage'));
+const FeaturedStoreApplicationPage = lazy(() => import('./pages/seller/FeaturedStoreApplicationPage'));
+const FeaturedStorePaymentPage = lazy(() => import('./pages/seller/FeaturedStorePaymentPage'));
+const StorePosterPage = lazy(() => import('./pages/seller/StorePosterPage'));
 
-// Admin Pages
-import AdminDashboardPage from './pages/admin/AdminDashboardPage';
-import AdminUsersPage from './pages/admin/AdminUsersPage';
-import AdminInvitesPage from './pages/AdminInvitesPage';
-import AdminStoresPage from './pages/admin/AdminStoresPage';
-import AdminProductsPage from './pages/admin/AdminProductsPage';
-import AdminReviewsPage from './pages/admin/AdminReviewsPage';
-import AdminCategoriesPage from './pages/admin/AdminCategoriesPage';
-import AdminBannersPage from './pages/admin/AdminBannersPage';
-import AdminStoreApprovalsPage from './pages/admin/AdminStoreApprovalsPage';
-import AdminLocationsPage from './pages/admin/AdminLocationsPage';
-import AdminSiteSettingsPage from './pages/admin/AdminSiteSettingsPage';
-import AdminSellPhonePage from './pages/admin/AdminSellPhonePage';
-import AdminFranchisePage from './pages/admin/AdminFranchisePage';
-import FranchiseAnalyticsDashboard from './pages/admin/FranchiseAnalyticsDashboard';
-import AdminPayoutPage from './pages/admin/AdminPayoutPage';
-import AdminFranchiseAnalyticsPage from './pages/admin/AdminFranchiseAnalyticsPage';
-import AdminPayoutsPage from './pages/admin/AdminPayoutsPage';
-import PayoutAnalyticsDashboard from './pages/admin/PayoutAnalyticsDashboard';
-import ReturnPolicySettingsPage from './pages/admin/ReturnPolicySettingsPage';
-import ReturnPeriodAdjustmentsPage from './pages/admin/ReturnPeriodAdjustmentsPage';
-import NotificationPreferencesPage from './pages/admin/NotificationPreferencesPage';
-import NotificationTemplatesPage from './pages/admin/NotificationTemplatesPage';
-import NotificationAnalyticsPage from './pages/admin/NotificationAnalyticsPage';
-import AdminCarBrandsPage from './pages/admin/AdminCarBrandsPage';
-import AdminBikeBrandsPage from './pages/admin/AdminBikeBrandsPage';
-import AdminPhoneBrandsPage from './pages/admin/AdminPhoneBrandsPage';
-import AdminSellerApplicationsPage from './pages/admin/AdminSellerApplicationsPage';
-import AdminPromotionsPage from './pages/admin/AdminPromotionsPage';
-import MonitoringDashboard from './pages/admin/MonitoringDashboard';
-import RecoveryDashboard from './pages/admin/RecoveryDashboard';
-import SEOManagementPage from './pages/admin/SEOManagementPage';
-import AdminEmailConfigPage from './pages/admin/AdminEmailConfigPage';
-import AdminBackupPage from './pages/admin/AdminBackupPage';
-import AdminFeedbackPage from './pages/admin/AdminFeedbackPage';
-import AdminPaymentSettingsPage from './pages/admin/AdminPaymentSettingsPage';
-import AdminPlatformSettingsPage from './pages/admin/AdminPlatformSettingsPage';
-import AdminProductApprovalsPage from './pages/admin/AdminProductApprovalsPage';
-import AdminFeaturedStorePlansPage from './pages/admin/AdminFeaturedStorePlansPage';
-import AdminFeaturedStoreApplicationsPage from './pages/admin/AdminFeaturedStoreApplicationsPage';
-import AdminIconPreviewAnalyticsPage from './pages/admin/AdminIconPreviewAnalyticsPage';
-import AdminPersonalizationDashboard from './pages/AdminPersonalizationDashboard';
+// ─── Admin Pages ───────────────────────────────────────────────────────────────
+const AdminDashboardPage = lazy(() => import('./pages/admin/AdminDashboardPage'));
+const AdminUsersPage = lazy(() => import('./pages/admin/AdminUsersPage'));
+const AdminInvitesPage = lazy(() => import('./pages/AdminInvitesPage'));
+const AdminStoresPage = lazy(() => import('./pages/admin/AdminStoresPage'));
+const AdminProductsPage = lazy(() => import('./pages/admin/AdminProductsPage'));
+const AdminReviewsPage = lazy(() => import('./pages/admin/AdminReviewsPage'));
+const AdminCategoriesPage = lazy(() => import('./pages/admin/AdminCategoriesPage'));
+const AdminBannersPage = lazy(() => import('./pages/admin/AdminBannersPage'));
+const AdminStoreApprovalsPage = lazy(() => import('./pages/admin/AdminStoreApprovalsPage'));
+const AdminLocationsPage = lazy(() => import('./pages/admin/AdminLocationsPage'));
+const AdminSiteSettingsPage = lazy(() => import('./pages/admin/AdminSiteSettingsPage'));
+const AdminSellPhonePage = lazy(() => import('./pages/admin/AdminSellPhonePage'));
+const AdminFranchisePage = lazy(() => import('./pages/admin/AdminFranchisePage'));
+const FranchiseAnalyticsDashboard = lazy(() => import('./pages/admin/FranchiseAnalyticsDashboard'));
+const AdminPayoutPage = lazy(() => import('./pages/admin/AdminPayoutPage'));
+const AdminFranchiseAnalyticsPage = lazy(() => import('./pages/admin/AdminFranchiseAnalyticsPage'));
+const AdminPayoutsPage = lazy(() => import('./pages/admin/AdminPayoutsPage'));
+const PayoutAnalyticsDashboard = lazy(() => import('./pages/admin/PayoutAnalyticsDashboard'));
+const ReturnPolicySettingsPage = lazy(() => import('./pages/admin/ReturnPolicySettingsPage'));
+const ReturnPeriodAdjustmentsPage = lazy(() => import('./pages/admin/ReturnPeriodAdjustmentsPage'));
+const NotificationPreferencesPage = lazy(() => import('./pages/admin/NotificationPreferencesPage'));
+const NotificationTemplatesPage = lazy(() => import('./pages/admin/NotificationTemplatesPage'));
+const NotificationAnalyticsPage = lazy(() => import('./pages/admin/NotificationAnalyticsPage'));
+const AdminCarBrandsPage = lazy(() => import('./pages/admin/AdminCarBrandsPage'));
+const AdminBikeBrandsPage = lazy(() => import('./pages/admin/AdminBikeBrandsPage'));
+const AdminPhoneBrandsPage = lazy(() => import('./pages/admin/AdminPhoneBrandsPage'));
+const AdminSellerApplicationsPage = lazy(() => import('./pages/admin/AdminSellerApplicationsPage'));
+const AdminPromotionsPage = lazy(() => import('./pages/admin/AdminPromotionsPage'));
+const MonitoringDashboard = lazy(() => import('./pages/admin/MonitoringDashboard'));
+const RecoveryDashboard = lazy(() => import('./pages/admin/RecoveryDashboard'));
+const SEOManagementPage = lazy(() => import('./pages/admin/SEOManagementPage'));
+const AdminEmailConfigPage = lazy(() => import('./pages/admin/AdminEmailConfigPage'));
+const AdminBackupPage = lazy(() => import('./pages/admin/AdminBackupPage'));
+const AdminFeedbackPage = lazy(() => import('./pages/admin/AdminFeedbackPage'));
+const AdminPaymentSettingsPage = lazy(() => import('./pages/admin/AdminPaymentSettingsPage'));
+const AdminPlatformSettingsPage = lazy(() => import('./pages/admin/AdminPlatformSettingsPage'));
+const AdminProductApprovalsPage = lazy(() => import('./pages/admin/AdminProductApprovalsPage'));
+const AdminFeaturedStorePlansPage = lazy(() => import('./pages/admin/AdminFeaturedStorePlansPage'));
+const AdminFeaturedStoreApplicationsPage = lazy(() => import('./pages/admin/AdminFeaturedStoreApplicationsPage'));
+const AdminIconPreviewAnalyticsPage = lazy(() => import('./pages/admin/AdminIconPreviewAnalyticsPage'));
+const AdminPersonalizationDashboard = lazy(() => import('./pages/AdminPersonalizationDashboard'));
 
-// Payment Pages
-import PaymentSuccessPage from './pages/PaymentSuccessPage';
-
-// Seller Pages - Featured Store
-import FeaturedStoreApplicationPage from './pages/seller/FeaturedStoreApplicationPage';
-import FeaturedStorePaymentPage from './pages/seller/FeaturedStorePaymentPage';
-import StorePosterPage from './pages/seller/StorePosterPage';
+// ─── Payment Pages ─────────────────────────────────────────────────────────────
+const PaymentSuccessPage = lazy(() => import('./pages/PaymentSuccessPage'));
 
 interface RouteConfig {
   name: string;
@@ -156,7 +153,6 @@ const routes: RouteConfig[] = [
   { name: 'Vendor Registration Legacy', path: '/vendor/auth/registration/index', element: <Navigate to="/register" replace /> },
   { name: 'Contact Us Legacy', path: '/contact-us', element: <Navigate to="/" replace /> },
   { name: 'Refund Policy Legacy', path: '/refund', element: <Navigate to="/terms" replace /> },
-  // Stale sitemap-generated URLs (old sitemap.ts used wrong paths before fix)
   { name: 'Store Detail Legacy Singular', path: '/store/:id', element: <StoreLegacyRedirect /> },
   { name: 'Category Detail Legacy', path: '/category/:id', element: <Navigate to="/categories" replace /> },
   { name: 'Terms of Service Legacy', path: '/terms-of-service', element: <Navigate to="/terms" replace /> },
@@ -173,7 +169,6 @@ const routes: RouteConfig[] = [
   { name: 'Product Detail', path: '/products/:id', element: <ProductDetailPage /> },
   { name: 'Franchise Listing', path: '/elite-partners', element: <FranchiseListingPage /> },
   { name: 'Become Franchise', path: '/become-elite-partner', element: <BecomeFranchisePage /> },
-  // Legacy redirects — old /franchises and /become-franchise paths
   { name: 'Franchises Legacy', path: '/franchises', element: <Navigate to="/elite-partners" replace /> },
   { name: 'Become Franchise Legacy', path: '/become-franchise', element: <Navigate to="/become-elite-partner" replace /> },
   { name: 'About Us', path: '/about', element: <AboutUsPage /> },
@@ -213,6 +208,7 @@ const routes: RouteConfig[] = [
   // Admin Routes
   { name: 'Admin Dashboard', path: '/admin', element: <AdminDashboardPage /> },
   { name: 'Admin Users', path: '/admin/users', element: <AdminUsersPage /> },
+  { name: 'Admin Invites', path: '/admin/invites', element: <AdminInvitesPage /> },
   { name: 'Admin Store Approvals', path: '/admin/approvals', element: <AdminStoreApprovalsPage /> },
   { name: 'Admin Product Approvals', path: '/admin/product-approvals', element: <AdminProductApprovalsPage /> },
   { name: 'Admin Stores', path: '/admin/stores', element: <AdminStoresPage /> },
@@ -251,7 +247,7 @@ const routes: RouteConfig[] = [
   { name: 'Admin Feedback', path: '/admin/feedback', element: <AdminFeedbackPage /> },
   { name: 'Admin Icon Preview Analytics', path: '/admin/icon-preview-analytics', element: <AdminIconPreviewAnalyticsPage /> },
   { name: 'Admin Personalization Dashboard', path: '/admin/personalization', element: <AdminPersonalizationDashboard /> },
-  
+
   // Payment Routes
   { name: 'Payment Success', path: '/payment-success', element: <PaymentSuccessPage /> },
 ];
